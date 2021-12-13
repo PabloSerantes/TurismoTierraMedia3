@@ -1,0 +1,37 @@
+body, html {
+    height: 100%;
+}
+
+body, footer{
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+}
+.login-body{
+    height: 100%;
+    background-color: rgb(65, 159, 236);
+    background-image: url('loginimage.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;    
+}
+
+.user-body{
+    height: 100%;
+    background-color: rgb(65, 159, 236);
+    background-image: url('backgroundimage.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;    
+}
+
+.admin-body{
+    height: 100%;
+    background-color: rgb(65, 159, 236);
+    background-image: url('adminback.png');
+    background-size: cover;
+    background-repeat: no-repeat;    
+}
+
+.accordion{
+    margin-top: 50px;
+    max-width: 800px;
+}
