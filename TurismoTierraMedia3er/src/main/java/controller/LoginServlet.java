@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
     	if (Objects.nonNull(user)) {
 			if(user.auth(password)){
 				req.getSession().setAttribute("username", username);
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user.jsp");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/preferencia.do");
 				dispatcher.forward(req, resp);
 			} else {
 				req.setAttribute("flash", "Error, usuario o contraseña incorrectos");    		
@@ -34,7 +34,9 @@ public class LoginServlet extends HttpServlet {
 				dispatcher.forward(req, resp);
 			}
     	} else {
-    		req.setAttribute("flash", "Error, usuario o contraseña incorrectos");    		
+    		if(Objects.nonNull(username)&&Objects.nonNull(password)) {
+    			req.setAttribute("flash", "Error, usuario o contraseña incorrectos"); 
+    		}
     		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
       		dispatcher.forward(req, resp);
     	}

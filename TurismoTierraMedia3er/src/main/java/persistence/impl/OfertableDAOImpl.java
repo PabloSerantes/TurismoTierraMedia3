@@ -1,12 +1,12 @@
 package persistence.impl;
 
-import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import model.Ofertable;
 import persistence.OfertableDAO;
@@ -52,6 +52,9 @@ public class OfertableDAOImpl implements OfertableDAO{
                     oferta = toOferta(resultados);
                 }
             }
+            if(Objects.isNull(oferta)) {
+            	throw new Exception(Nombre);
+            }
             return oferta;
         } catch (Exception e) {
             throw new MissingDataException(e);
@@ -61,7 +64,7 @@ public class OfertableDAOImpl implements OfertableDAO{
     @Override
     public List<Ofertable> findAll() {
         try {
-			String sql = "SELECT * FROM Atracciones";
+			String sql = "SELECT * FROM Atraccion";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
@@ -71,7 +74,7 @@ public class OfertableDAOImpl implements OfertableDAO{
 				ofertas.add(toOferta(resultados));
 			}
 
-            sql = "SELECT * FROM Promociones";
+            sql = "SELECT * FROM Promocion";
             conn = ConnectionProvider.getConnection();
             statement = conn.prepareStatement(sql);
             resultados = statement.executeQuery();
@@ -193,6 +196,7 @@ public class OfertableDAOImpl implements OfertableDAO{
             salida = new Ofertable(res.getInt("Id"),
             res.getString("Nombre"), res.getInt("Costo"), res.getDouble("Tiempo"), res.getInt("Cupo"), res.getInt("Tipo"), res.getInt("Active")==1);
         }
+        System.out.println();
         return salida;
     }
 }

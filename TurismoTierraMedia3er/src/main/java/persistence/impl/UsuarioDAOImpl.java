@@ -10,9 +10,9 @@ import java.sql.SQLException;
 import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
-/*
+
 import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;*/
+import javax.crypto.spec.PBEKeySpec;
 
 import model.Usuario;
 import persistence.UsuarioDAO;
@@ -89,7 +89,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, t.getUsername());
-			//statement.setString(2, PassHash(t.getPassword() ) );
+			statement.setString(2, PassHash(t.getPassword() ) );
 			statement.setDouble(3, t.getpresupuesto());
 			statement.setInt(4, t.getPreferencia());
 			statement.setInt(5, t.getId());
@@ -119,11 +119,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	@Override
 	public Usuario findByUsername(String username) {
 		try {
-			String sql = "SELECT * FROM Usuarios WHERE name = ?";
+			String sql = "SELECT * FROM Usuarios WHERE Nombre = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, username);
-			
 			ResultSet resultados = statement.executeQuery();
 
 			Usuario usuario = null;
@@ -153,10 +152,18 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	@Override
 	public Usuario toUsuario(ResultSet res) throws SQLException {
-		return null;
+			return new Usuario(res.getInt("Id"),
+								res.getString("Nombre"),
+								res.getString("Password"),
+								res.getInt("Admin")==1,
+								res.getInt("Presupuesto"),
+								res.getInt("Preferencia"),
+								res.getDouble("TiempoDisponible"),
+								res.getInt("Active")==1
+			);
 	}
 
-	/*
+	
 	private static String PassHash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException{
         String strSalt = "@_M(FbH_H[m24!qU";
         byte[] salt = strSalt.getBytes();
@@ -167,5 +174,4 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         return enc.encodeToString(hash);
       
     }
-	*/
 }
