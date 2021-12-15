@@ -75,6 +75,14 @@ public class Usuario {
 		}
 	}
 
+	public boolean hashAuth(String password) {
+		try {
+			return this.password.equals(password);
+		} catch (Exception err) {
+			return false;
+		}
+	}
+
 	public String getUsername() {
 		return username;
 	}

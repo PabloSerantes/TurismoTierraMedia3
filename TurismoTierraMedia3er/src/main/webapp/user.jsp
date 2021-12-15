@@ -59,9 +59,9 @@
 			  <tbody>
 			 	<c:forEach items="${list}" var="item">
 				 	<tr class="table-primary">
-				      <th scope="row">${item} Nombre</th>
-				      <td>${item} Precio</td>
-				      <td>${item} Tipo</td>
+				      <th scope="row">${item.getNombre()} Nombre</th>
+				      <td>${item.getPrecio()} Precio</td>
+				      <td>${tipos.get(item.getTipo())} Tipo</td>
 				      <td><a href="#" style="color: black;">Comprar</a></td>
 				    </tr>
 			 	</c:forEach>			    

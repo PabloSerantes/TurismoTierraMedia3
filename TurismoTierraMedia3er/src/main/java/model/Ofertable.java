@@ -1,10 +1,11 @@
 package model;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import persistence.commons.DAOFactory;
 
-public class Ofertable {
+public class Ofertable implements Comparable<Ofertable>{
     private Integer id;
     private String nombre;
     private Integer precio;
@@ -35,6 +36,34 @@ public class Ofertable {
         if(!(this.conformacion.isBlank()&&this.tipoPromocion.isBlank()) ){
             if(this.especial.isBlank()){
                 errors.put("PromocionError", "Las promociones requieren su promocion especial");
+            }
+            switch(this.tipoPromocion){
+                case "Porcentuales":
+                        if( !( isInteger(this.especial) ) ){
+                            errors.put("PromocionPorcentualError", "Valor invalido para descuento");
+                        } else {
+                            if(Integer.parseInt(this.especial)<=0 || Integer.parseInt(this.especial)>=100){
+                                errors.put("PromocionPorcentualError", "Los descuentos no pueden ser menores o iguales que 0 ni mayores o iguales a 100");
+                            }
+                        }
+                        break;
+                case "Absolutas":
+                        if( !( isInteger(this.especial) ) ){
+                            errors.put("PromocionAbsolutaError", "Valor invalido para descuento");
+                        } else {
+                            if(Integer.parseInt(this.especial)<=0||Integer.parseInt(this.especial)>=this.precio){
+                                errors.put("PromocionAbsolutaError", "Los descuentos tienen que ser mayores que 0 y menores que el precio de la atraccion");
+                            }
+                        }
+                        break;
+                case "AxB":
+                        if(Objects.isNull(DAOFactory.getOfertableDAO().find(this.especial))){
+                            errors.put("PromocionAxBError", "La atraccion de regalo es invalida");
+                        }
+                        break;
+                default:
+                    errors.put("PromocionError", "Tipo de promocion invalido");
+                    break;
             }
         }
         return errors;
@@ -173,12 +202,46 @@ public class Ofertable {
     private void promGenerarDatos(){
         this.precio = 0;
         this.tiempo = 0.0;
-        this.cupo = 0;
+        this.cupo = Integer.MAX_VALUE;
         String[] atracciones = this.conformacion.split(" - ");
         for (String atr : atracciones) {
             this.precio += DAOFactory.getOfertableDAO().find(atr).getPrecio();
             this.tiempo += DAOFactory.getOfertableDAO().find(atr).getTiempo();
-            this.cupo += DAOFactory.getOfertableDAO().find(atr).getCupo();
+            if(DAOFactory.getOfertableDAO().find(atr).getCupo()<this.cupo){
+                this.cupo = DAOFactory.getOfertableDAO().find(atr).getCupo();
+            }
+        }
+        switch(this.tipoPromocion){
+            case "Porcentuales":
+                this.precio -= (this.precio/100)*(Integer.parseInt(this.especial));
+                break;
+            case "Absolutas":
+                this.precio -= Integer.parseInt(this.especial);
+                break;
+            case "AxB":
+                this.tiempo += DAOFactory.getOfertableDAO().find(especial).getTiempo();
+                break;
+        }
+    }
+
+    @Override
+    public int compareTo(Ofertable o) {
+        int salida = Integer.compare(o.getPrecio(), this.getPrecio());
+        if(salida!=0){
+            return salida;
+        }
+        else{
+            salida = Double.compare(o.getTiempo(), this.getTiempo());
+        }
+        return salida;
+    }
+
+    private boolean isInteger(String str) {
+        try{
+            Integer.parseInt(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
         }
     }
 }

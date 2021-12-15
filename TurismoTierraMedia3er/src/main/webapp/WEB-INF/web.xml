@@ -14,4 +14,24 @@
   	<filter-name>LoggedFilter</filter-name>
   	<url-pattern>/LoggedFilter</url-pattern>
   </filter-mapping>
+  <servlet>
+  	<servlet-name>ListarOfertasServlet</servlet-name>
+  	<display-name>ListarOfertasServlet</display-name>
+  	<description></description>
+  	<servlet-class>service.ListarOfertasServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ListarPreferenciasOfertasServlet</servlet-name>
+  	<display-name>ListarPreferenciasOfertasServlet</display-name>
+  	<description></description>
+  	<servlet-class>controller.ListarPreferenciasOfertasServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ListarOfertasServlet</servlet-name>
+  	<url-pattern>/ListarOfertasServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ListarPreferenciasOfertasServlet</servlet-name>
+  	<url-pattern>/Preferencias.do</url-pattern>
+  </servlet-mapping>
 </web-app>
