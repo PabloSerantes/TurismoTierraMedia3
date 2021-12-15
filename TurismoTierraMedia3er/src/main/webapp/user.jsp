@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
     
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +35,7 @@
                     <a class="nav-link" href="#">Mis Compras</a>
                   </li>
                 </ul>
-                <a href="logout" style="color: black;">Cerrar Sesión <img src="logout.png" style="width:40px;height:30px;" alt="Logout"></a>
+                <a href="logout" style="color: black;">Cerrar Sesion <img src="logout.png" style="width:40px;height:30px;" alt="Logout"></a>
               </div>
             </div>
           </nav>
@@ -72,7 +72,7 @@
     </main>
 
     <footer style="color: gray;">
-      <b>Secretaría de Turismo de la Tierra Media © 2021</b>
+      <b>Secretaria de Turismo de la Tierra Media - 2021</b>
     </footer>
 
 </body>

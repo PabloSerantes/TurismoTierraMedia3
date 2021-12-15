@@ -31,7 +31,12 @@ body, footer{
     background-repeat: no-repeat;    
 }
 
-.accordion{
+#tabSelector{
     margin-top: 50px;
+    max-width: 200px;
+}
+
+#tabTable{
+    margin-top: 100px;
     max-width: 800px;
 }

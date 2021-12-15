@@ -10,9 +10,9 @@ import java.sql.SQLException;
 import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
-
+/*
 import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.PBEKeySpec;*/
 
 import model.Usuario;
 import persistence.UsuarioDAO;
@@ -89,7 +89,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, t.getUsername());
-			statement.setString(2, PassHash(t.getPassword() ) );
+			//statement.setString(2, PassHash(t.getPassword() ) );
 			statement.setDouble(3, t.getpresupuesto());
 			statement.setInt(4, t.getPreferencia());
 			statement.setInt(5, t.getId());
@@ -156,6 +156,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		return null;
 	}
 
+	/*
 	private static String PassHash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException{
         String strSalt = "@_M(FbH_H[m24!qU";
         byte[] salt = strSalt.getBytes();
@@ -164,6 +165,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         byte[] hash = f.generateSecret(spec).getEncoded();
         Base64.Encoder enc = Base64.getEncoder();
         return enc.encodeToString(hash);
+      
     }
-	
+	*/
 }

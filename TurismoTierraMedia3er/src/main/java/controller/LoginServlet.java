@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
     	Usuario user = DAOFactory.getUsuarioDAO().findByUsername(username);
     	if (Objects.nonNull(user)) {
 			if(user.auth(password)){
-				req.getSession().setAttribute("username", "ricardo");
+				req.getSession().setAttribute("username", username);
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user.jsp");
 				dispatcher.forward(req, resp);
 			} else {

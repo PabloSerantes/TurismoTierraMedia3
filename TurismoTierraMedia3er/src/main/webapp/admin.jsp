@@ -30,14 +30,12 @@
 	</header>
 
 	<main>
-
-
-		<nav class="accordion" id="accordionExample">
+		<nav class="accordion"id="tabSelector" >
 			<div class="list-group">
-				<div class="list-group-item list-group-item-action active">Herramientas
+				<div class="list-group-item list-group-item-action active" style="width:455px">Herramientas
 					de Administrador</div>
 			</div>
-			<ul class="nav nav-tabs">
+			<ul class="nav nav-tabs" style="width:455px">
 				<li class="nav-item"><a class="nav-link active" data-bs-toggle="tab"
 					href="#usuarios">Usuarios</a>
 				</li>
@@ -51,7 +49,9 @@
 					href="#compras">Compras</a>
 				</li>
 			</ul>
-			<div id="myTabContent" class="tab-content">
+		</nav>	
+		<nav class="accordion" id="tabTable">			
+			<div id="myTabContent" class="tab-content" style="overflow:auto; height:15em;">
 				<div class="tab-pane fade active show" id="usuarios">
 					<table class="table table-primary">
 						  <thead>
@@ -69,7 +69,7 @@
 							      <td>Tiempo</td>
 							      <td><a href="#" style="color: black;">Modificar</a></td>
 							      <td><a href="#" style="color: black;">Eliminar</a></td>
-							    </tr>			    
+							    </tr>	   
 						  </tbody>
 					</table>
 				</div>
@@ -103,6 +103,13 @@
 						      <th scope="col">Tiempo</th>
 						      <th scope="col" colspan="2"/>
 						    </tr>
+						    <tr class="table-secondary">
+							      <th scope="row">Nombre</th>
+							      <td>Presupuesto</td>
+							      <td>Tiempo</td>
+							      <td><a href="#" style="color: black;">Modificar</a></td>
+							      <td><a href="#" style="color: black;">Eliminar</a></td>
+							</tr>	
 						  </thead>
 						  <tbody>
 							 	<tr class="table-secondary">

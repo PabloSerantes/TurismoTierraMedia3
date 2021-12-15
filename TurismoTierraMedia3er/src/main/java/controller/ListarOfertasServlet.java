@@ -34,7 +34,7 @@ public class ListarOfertasServlet extends HttpServlet {
 		if(user.isAdmin()){
 			salida = "admin.jsp";
 		} else {
-			salida = "usergeneral.jsp";
+			salida = "user.jsp";
 		}
 		getServletContext().getRequestDispatcher(salida).forward(request, response);
 	}
