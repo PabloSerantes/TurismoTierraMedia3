@@ -31,8 +31,8 @@ public class Usuario {
 		return errors;
 	}	
 	
-	public boolean puedePagar(Ofertable prod) {
-		return presupuesto >= prod.getPrecio();
+	public boolean puedeComprar(Ofertable prod) {
+		return this.presupuesto >= prod.getPrecio() && this.tiempo >= prod.getTiempo() && prod.puedeOfertarse();
 	}
 	
 	public void comprar(Ofertable prod) {

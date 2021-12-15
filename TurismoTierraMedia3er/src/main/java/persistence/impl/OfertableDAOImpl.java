@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -81,6 +82,7 @@ public class OfertableDAOImpl implements OfertableDAO{
             while (resultados.next()){
                 ofertas.add(toOferta(resultados));
             }
+            Collections.sort(ofertas);
 			return ofertas;
 		} catch (Exception e) {
 			throw new MissingDataException(e);

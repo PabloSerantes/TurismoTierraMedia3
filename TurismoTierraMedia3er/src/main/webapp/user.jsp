@@ -58,13 +58,20 @@
 			  </thead>
 			  <tbody>
 			 	<c:forEach items="${list}" var="item">
-				 	<tr class="table-primary">
-				 		
-						<th scope="row"><c:out value="${item.getNombre()}"></c:out> </th>
-						<td><c:out value="${item.getPrecio()}"></c:out> </td>
-						<td><c:out value="${item.getStipo()}"></c:out></td>
-						<td><a href="#" style="color: black;">Comprar</a></td>
-				    </tr>
+			 		<c:if test="${item.isActive()}">
+					 	<tr class="table-primary">
+					 		
+							<th scope="row"><c:out value="${item.getNombre()}"></c:out> </th>
+							<td><c:out value="${item.getPrecio()}"></c:out> </td>
+							<td><c:out value="${item.getStipo()}"></c:out></td>
+							<c:if test="${item.puedeComprar(username)}">
+								<td><a href="#" style="color: black;">Comprar</a></td>
+							</c:if>
+							<c:if test="${!item.puedeComprar(username)}">
+								<td><a style="color: gray; disabled">No Puede</a></td>
+							</c:if>
+					    </tr>
+					</c:if>
 			 	</c:forEach>			    
 			  </tbody>
 		</table> 

@@ -236,6 +236,10 @@ public class Ofertable implements Comparable<Ofertable>{
                 break;
         }
     }
+    
+    public boolean puedeComprar(String username) {
+    	return DAOFactory.getUsuarioDAO().findByUsername(username).puedeComprar(this);
+    }
 
     @Override
     public int compareTo(Ofertable o) {
