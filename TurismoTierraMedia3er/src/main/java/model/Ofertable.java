@@ -172,6 +172,19 @@ public class Ofertable implements Comparable<Ofertable>{
         return this.tipo;
     }
 
+    public String getStipo() {
+    	switch(this.tipo) {
+    	case 1:
+    		return "Aventura";
+    	case 2:
+    		return "Paisaje";
+    	case 3:
+    		return "Degustacion";
+    	default:
+    		return "ayuda no se como llegue aca";
+    	}
+    }
+    
     public void setTipo(int tipo) {
         this.tipo = tipo;
     }

@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Ofertable;
 import model.Usuario;
-import model.OfertasUsuario;
 import persistence.commons.DAOFactory;
 
 import service.OfertasService;
@@ -25,11 +24,7 @@ public class ListarPreferenciasOfertasServlet extends HttpServlet {
 		String username = (String)((HttpServletRequest) request).getSession().getAttribute("username");
 		Usuario user = DAOFactory.getUsuarioDAO().findByUsername(username);
 		List<Ofertable> ofertas = servOfertas.list(user.getPreferencia());
-		List<OfertasUsuario> salida = new ArrayList<OfertasUsuario>();
-		for(Ofertable ofert: ofertas) {
-			salida.add(new OfertasUsuario(ofert));
-		}
-		request.setAttribute("list",salida);
+		request.setAttribute("list",ofertas);
 		getServletContext().getRequestDispatcher("/user.jsp").forward(request, response);
 	}
 

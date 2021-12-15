@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Usuario;
 import persistence.commons.DAOFactory;
 import service.OfertasService;
-import service.ProductoService;
 /**
  * Servlet implementation class ListarOfertasServlet
  */

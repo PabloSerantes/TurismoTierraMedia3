@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import = "controller.ListarPreferenciasOfertasServlet"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     
@@ -43,7 +43,6 @@
     
     <main>
     <%String username = (String) session.getAttribute("username"); %>
-    <jsp:useBean id = "datos" class = "controller.ListarPreferenciasOfertasServlet"/>
       <div class="card text-white bg-info mb-3" style="max-width: 90rem; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
         <div class="card-header">Hola <%= username %>!</div>
         <div class="card-body">
@@ -61,17 +60,14 @@
 			 	<c:forEach items="${list}" var="item">
 				 	<tr class="table-primary">
 				 		
-						<th scope="row"><c:out value="${item}"></c:out> </th>
-						<td><c:out value="${item.precio()}"></c:out> </td>
-						<td><c:out value="${item}"></c:out></td>
+						<th scope="row"><c:out value="${item.getNombre()}"></c:out> </th>
+						<td><c:out value="${item.getPrecio()}"></c:out> </td>
+						<td><c:out value="${item.getStipo()}"></c:out></td>
 						<td><a href="#" style="color: black;">Comprar</a></td>
 				    </tr>
 			 	</c:forEach>			    
 			  </tbody>
 		</table> 
-		<c:forEach var="i" begin = "1" end = "10">
-			Item <c:out value = "${i}"/><p>
-		</c:forEach>
         </div>
       </div>
     </main>
