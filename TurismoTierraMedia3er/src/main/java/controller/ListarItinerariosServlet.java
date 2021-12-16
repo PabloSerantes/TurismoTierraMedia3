@@ -22,6 +22,25 @@ public class ListarItinerariosServlet extends HttpServlet {
 		super.init();
 		itinerariosService = new ItinerariosService();
 	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username = (String)((HttpServletRequest) request).getSession().getAttribute("username");
+		Usuario user = DAOFactory.getUsuarioDAO().findByUsername(username);
+		
+		if(user.isAdmin()) {
+			
+			List<Itinerarios> compras = itinerariosService.listAll();
+			request.setAttribute("listaItinerarios",compras);
+			getServletContext().getRequestDispatcher("/admpipe.adm").forward(request, response);
+			
+		} else {
+			
+			List<Itinerarios> compras = itinerariosService.findByUsername(username);
+			request.setAttribute("list",compras);
+			getServletContext().getRequestDispatcher("/useritn.jsp").forward(request, response);
+			
+		}
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = (String)((HttpServletRequest) request).getSession().getAttribute("username");
 		Usuario user = DAOFactory.getUsuarioDAO().findByUsername(username);
@@ -36,9 +55,8 @@ public class ListarItinerariosServlet extends HttpServlet {
 			
 			List<Itinerarios> compras = itinerariosService.findByUsername(username);
 			request.setAttribute("list",compras);
-			getServletContext().getRequestDispatcher("/???").forward(request, response);
+			getServletContext().getRequestDispatcher("/useritn.jsp").forward(request, response);
 			
 		}
 	}
-
 }

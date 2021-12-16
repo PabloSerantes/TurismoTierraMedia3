@@ -53,9 +53,6 @@ public class OfertableDAOImpl implements OfertableDAO{
                     oferta = toOferta(resultados);
                 }
             }
-            if(Objects.isNull(oferta)) {
-            	throw new Exception(Nombre);
-            }
             return oferta;
         } catch (Exception e) {
             throw new MissingDataException(e);

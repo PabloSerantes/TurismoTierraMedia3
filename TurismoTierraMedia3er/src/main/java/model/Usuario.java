@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 import javax.crypto.SecretKeyFactory;
@@ -44,13 +45,17 @@ public class Usuario {
 		for(Itinerarios itn: new service.ItinerariosService().findByUsername(this.username)) {
 			if(itn.esPromocion()) {
 				Ofertable lectura = DAOFactory.getOfertableDAO().find( itn.getPromociones() );
-				if(oferta.equals(lectura)) {
-					return true;
+				if(Objects.nonNull(lectura)) {
+					if(oferta.equals(lectura)) {
+						return true;
+					}
 				}
 			} else {
 				Ofertable lectura = DAOFactory.getOfertableDAO().find(itn.getAtracciones());
-				if(oferta.equals(lectura)) {
-					return true;
+				if(Objects.nonNull(lectura)) {
+					if(oferta.equals(lectura)) {
+						return true;
+					}
 				}
 			}
 		}

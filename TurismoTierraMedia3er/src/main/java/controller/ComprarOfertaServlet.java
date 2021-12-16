@@ -23,7 +23,7 @@ public class ComprarOfertaServlet extends HttpServlet {
 		itinerariosService = new ItinerariosService();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = (String)((HttpServletRequest) request).getSession().getAttribute("username");
 		Usuario user = DAOFactory.getUsuarioDAO().findByUsername(username);
 		Ofertable compra = DAOFactory.getOfertableDAO().find(request.getParameter("compra"));

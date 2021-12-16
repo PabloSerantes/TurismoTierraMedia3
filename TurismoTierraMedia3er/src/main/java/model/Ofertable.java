@@ -261,7 +261,7 @@ public class Ofertable implements Comparable<Ofertable>{
     }
     
     public boolean esPromocion() {
-    	return !(this.conformacion.isBlank());
+    	return !(Objects.isNull(conformacion));
     }
 
     @Override
@@ -292,7 +292,7 @@ public class Ofertable implements Comparable<Ofertable>{
     }
     
     public boolean equals(Ofertable obj) {
-    	if(this.id == obj.id||this.nombre.equals(obj.getNombre())) {
+    	if(this.nombre.equals(obj.getNombre())) {
     		return true;
     	}
     	return false;

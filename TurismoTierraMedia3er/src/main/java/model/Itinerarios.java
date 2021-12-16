@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 import persistence.commons.DAOFactory;
 
 public class Itinerarios {
@@ -90,7 +92,19 @@ public class Itinerarios {
     }
     
     public boolean esPromocion() {
-    	return this.atracciones.isBlank();
+    	return Objects.nonNull(this.atracciones);
+    }
+    
+    public String getNombre() {
+    	if(Objects.nonNull(this.atracciones)) {
+    		return this.atracciones;
+    	} else {
+    		return this.nombrePromocion();
+    	}
+    }
+    
+    public String nombrePromocion() {
+    	return DAOFactory.getOfertableDAO().find(this.promociones).getNombre();
     }
 
 }

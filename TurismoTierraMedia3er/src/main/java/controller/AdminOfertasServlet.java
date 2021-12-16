@@ -1,15 +1,12 @@
 package controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Ofertable;
-import persistence.commons.DAOFactory;
 import service.OfertasService;
 
 /**
@@ -26,7 +23,7 @@ public class AdminOfertasServlet extends HttpServlet {
 		ofertaService = new OfertasService();
 	}
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int opcion = (int)request.getAttribute("Opcion");
 		switch (opcion) {
 		case 1:

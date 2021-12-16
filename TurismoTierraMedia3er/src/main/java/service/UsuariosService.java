@@ -11,6 +11,10 @@ public class UsuariosService {
 		return DAOFactory.getUsuarioDAO().findAll();
 	}
 	
+	public Usuario find(String username) {
+		return DAOFactory.getUsuarioDAO().findByUsername(username);
+	}
+	
 	public int insert(String nombre, int preferencia, int presupuesto, Double tiempoDisponible,Boolean admin,String password) {
 		Usuario nuevo = new Usuario(nombre, password, admin, presupuesto, preferencia, tiempoDisponible);
 		if( nuevo.isValid() && Objects.isNull(DAOFactory.getUsuarioDAO().findByUsername(nombre)) ) {

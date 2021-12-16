@@ -59,20 +59,34 @@
 						      <th scope="col">Nombre</th>
 						      <th scope="col">Presupuesto</th>
 						      <th scope="col">Tiempo</th>
+						      <th scope="col">Admin</th>
+						      <th scope="col">Activo</th>
 						      <th scope="col" colspan="2"/>
 						    </tr>
 						  </thead>
 						  <tbody>
-							 	<tr class="table-secondary">
-							      <th scope="row">Nombre</th>
-							      <td>Presupuesto</td>
-							      <td>Tiempo</td>
-							      <td><a href="#" style="color: black;">Modificar</a></td>
-							      <td><a href="#" style="color: black;">Eliminar</a></td>
-							    </tr>	   
+						  		<c:forEach items="${listaUsuarios}" var="item">
+								 	<tr class="table-secondary">
+								      <th scope="row"><c:out value="${item.getUsername()}"></c:out></th>
+								      <td><c:out value="${item.getpresupuesto()}"></c:out></td>
+								      <td><c:out value="${item.getTiempo()}"></c:out></td>
+								      <td><c:out value="${item.isAdmin()}"></c:out></td>
+								      <td><c:out value="${item.isActive()}"></c:out></td>
+								      <td><a href="#" style="color: black;">Modificar</a></td>
+								      <td>
+								      <form action="users.adm" method="post">
+									      	<input type="hidden" name="SOpcion" value="3">
+									      	<input type="hidden" name="nombreBorrar" value="${item.getUsername()}">
+	    									<button type="submit" class="btn-link">eliminar</button>
+									  </form>
+									  </td>
+								    </tr>
+								</c:forEach>	   
 						  </tbody>
 					</table>
 				</div>
+				
+				
 				<div class="tab-pane fade" id="atracciones">
 					<table class="table table-primary">
 						  <thead>
@@ -80,20 +94,26 @@
 						      <th scope="col">Nombre</th>
 						      <th scope="col">Precio</th>
 						      <th scope="col">Tiempo</th>
+						      <th scope="col">active</th>
 						      <th scope="col" colspan="2"/>
 						    </tr>
 						  </thead>
 						  <tbody>
-							 	<tr class="table-secondary">
-							      <th scope="row">Nombre</th>
-							      <td>Precio</td>
-							      <td>Tiempo</td>
-							      <td><a href="#" style="color: black;">Modificar</a></td>
-							      <td><a href="#" style="color: black;">Eliminar</a></td>
-							    </tr>			    
+						  		<c:forEach items="${listaAtracciones}" var="item">
+								 	<tr class="table-secondary">
+								      <th scope="row"><c:out value="${item.getNombre()}"></c:out></th>
+								      <td><c:out value="${item.getPrecio()}"></c:out></td>
+								      <td><c:out value="${item.getTiempo()}"></c:out></td>
+								      <td><c:out value="${item.isActive()}"></c:out></td>
+								      <td><a href="#" style="color: black;">Modificar</a></td>
+								      <td><a href="#" style="color: black;">Eliminar</a></td>
+								    </tr>
+							    </c:forEach>			    
 						  </tbody>
 					</table>
 				</div>
+				
+				
 				<div class="tab-pane fade" id="promociones">
 					<table class="table table-primary">
 						  <thead>
@@ -101,44 +121,45 @@
 						      <th scope="col">Nombre</th>
 						      <th scope="col">Precio</th>
 						      <th scope="col">Tiempo</th>
+						      <th scope="col">Activo</th>
 						      <th scope="col" colspan="2"/>
-						    </tr>
-						    <tr class="table-secondary">
-							      <th scope="row">Nombre</th>
-							      <td>Presupuesto</td>
-							      <td>Tiempo</td>
-							      <td><a href="#" style="color: black;">Modificar</a></td>
-							      <td><a href="#" style="color: black;">Eliminar</a></td>
-							</tr>	
+						    </tr>	
 						  </thead>
 						  <tbody>
-							 	<tr class="table-secondary">
-							      <th scope="row">Nombre</th>
-							      <td>Precio</td>
-							      <td>Tiempo</td>
-							      <td><a href="#" style="color: black;">Modificar</a></td>
-							      <td><a href="#" style="color: black;">Eliminar</a></td>
-							    </tr>			    
+							 	<c:forEach items="${listaPromociones}" var="item">
+								 	<tr class="table-secondary">
+								      <th scope="row"><c:out value="${item.getNombre()}"></c:out></th>
+								      <td><c:out value="${item.getPrecio()}"></c:out></td>
+								      <td><c:out value="${item.getTiempo()}"></c:out></td>
+								      <td><c:out value="${item.isActive()}"></c:out></td>
+								      <td><a href="#" style="color: black;">Modificar</a></td>
+								      <td><a href="#" style="color: black;">Eliminar</a></td>
+								    </tr>
+							    </c:forEach>		    
 						  </tbody>
 					</table>
 				</div>
+				
+				
 				<div class="tab-pane fade" id="compras">
 					<table class="table table-primary">
 						  <thead>
 						    <tr>
-						      <th scope="col">Nombre</th>
-						      <th scope="col">Abonado</th>
-						      <th scope="col">Tipo</th>
-						      <th scope="col">Tiempo</th>
+						    	<th scope="col">Usuario</th>
+								<th scope="col">Nombre</th>
+								<th scope="col">Abonado</th>
+								<th scope="col">Tiempo</th>
 						    </tr>
 						  </thead>
 						  <tbody>
-							 	<tr class="table-secondary">
-							      <th scope="row">Nombre</th>
-							      <td>Abonado</td>
-							      <td>Tipo</td>
-							      <td>Tiempo</td>
-							    </tr>			    
+						  		<c:forEach items="${listaItinerarios}" var="item">
+								 	<tr class="table-secondary">
+								      <th scope="row"><c:out value="${item.getUsuario()}"></c:out></th>
+								      <td><c:out value="${item.getNombre()}"></c:out></td>
+								      <td><c:out value="${item.getPrecio()}"></c:out></td>
+								      <td><c:out value="${item.getTiempo()}"></c:out></td>
+								    </tr>
+								</c:forEach>			    
 						  </tbody>
 					</table>
 				</div>

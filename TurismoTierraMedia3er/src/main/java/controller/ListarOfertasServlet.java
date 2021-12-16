@@ -25,21 +25,25 @@ public class ListarOfertasServlet extends HttpServlet {
 		servOfertas = new OfertasService();
 	}
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String username = (String)((HttpServletRequest) request).getSession().getAttribute("username");
 		String salida = "";
 		Usuario user = DAOFactory.getUsuarioDAO().findByUsername(username);
 		List<Ofertable> ofertas;
 		if(user.isAdmin()){
-			ofertas = servOfertas.list(user.getPreferencia());
+			ofertas = servOfertas.list();
 			salida = "/admpipe.adm";
 			request.setAttribute("listaOfertas",ofertas);
 		} else {
-			ofertas = servOfertas.list();
+			ofertas = servOfertas.list(user.getPreferencia());
 			salida = "/user.jsp";
 			request.setAttribute("list",ofertas);
 		}
 		getServletContext().getRequestDispatcher(salida).forward(request, response);
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
 	}
 }

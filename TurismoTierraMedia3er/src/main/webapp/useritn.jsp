@@ -28,9 +28,6 @@
                   <li class="nav-item">
                     <a class="nav-link" href="ofertas.do">Inicio</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="itinerarios.do">Mis Compras</a>
-                  </li>
                 </ul>
                 <a href="logout" style="color: black;">Cerrar Sesion <img src="logout.png" style="width:40px;height:30px;" alt="Logout"></a>
               </div>
@@ -43,33 +40,30 @@
       <div class="card text-white bg-info mb-3" style="max-width: 90rem; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
         <div class="card-header">Hola <%= username %>!</div>
         <div class="card-body">
-          <h4 class="card-title">Ofertas:</h4>
-          <div style="overflow: auto; height: 15em; width:750px;">
-	          <table class="table table-hover">
-				  <thead>
-				    <tr>
-				      <th scope="col">Nombre</th>
-				      <th scope="col">Precio</th>
-				      <th scope="col">Tipo</th>
-				      <th scope="col"/>
-				    </tr>
-				  </thead>
-				  <tbody>
-				 	<c:forEach items="${list}" var="item">
-				 		<c:if test="${item.isActive()}">
-						 	<tr class="table-primary">
-						 		<c:if test="${item.puedeComprar(username)}">
-									<th scope="row"><c:out value="${item.getNombre()}"></c:out> </th>
-									<td><c:out value="${item.getPrecio()}"></c:out> </td>
-									<td><c:out value="${item.getStipo()}"></c:out></td>
-									<td><a href="#" style="color: black;">Comprar</a></td>
-								</c:if>
-						    </tr>
+          <h4 class="card-title">Compras:</h4>
+          <table class="table table-hover">
+			  <thead>
+			    <tr>
+			      <th scope="col">Nombre</th>
+			      <th scope="col">Precio</th>
+			      <th scope="col">Tiempo</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			 	<c:forEach items="${list}" var="item">
+				 	<tr class="table-primary">
+				 		<c:if test="${!item.esPromocion()}">
+							<th scope="row"><c:out value="${item.nombrePromocion()}"></c:out> </th>
 						</c:if>
-				 	</c:forEach>			    
-				  </tbody>
-			</table>
-		</div> 
+						<c:if test="${item.esPromocion()}">
+							<th scope="row"><c:out value="${item.getAtracciones()}"></c:out> </th>
+						</c:if>
+						<td><c:out value="${item.getPrecio()}"></c:out> </td>
+						<td><c:out value="${item.getTiempo()}"></c:out></td>
+				    </tr>
+			 	</c:forEach>			    
+			  </tbody>
+		</table> 
         </div>
       </div>
     </main>

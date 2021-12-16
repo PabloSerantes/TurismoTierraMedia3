@@ -24,7 +24,9 @@ public class OfertasService {
         }
         Collections.sort(distintos);
         Collections.sort(salida);
-        salida.addAll(distintos);
+        for(Ofertable ofrt: distintos) {
+        	salida.add(ofrt);
+        }
         return salida;
     }
 

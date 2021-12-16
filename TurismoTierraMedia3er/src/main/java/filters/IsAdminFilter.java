@@ -15,21 +15,22 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import model.Usuario;
 import persistence.commons.DAOFactory;
+import service.UsuariosService;
 
 @WebFilter(urlPatterns = "*.adm")
 
 public class IsAdminFilter implements Filter {
-
+UsuariosService usuarioService = new UsuariosService();
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
-		Usuario user = DAOFactory.getUsuarioDAO().findByUsername((String)((HttpServletRequest) request).getSession().getAttribute("user"));
+		String username = (String)((HttpServletRequest) request).getSession().getAttribute("username");
+		Usuario user = usuarioService.find(username);
 
 		if (Objects.nonNull(user) && user.isAdmin()) {
 			chain.doFilter(request, response);
 		} else {
-			request.setAttribute("flash", "No tienes los permisos necesarios");
-			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/user.jsp");
+			request.setAttribute("flash", "No tenes los permisos necesarios");
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/login.jsp");
 			dispatcher.forward(request, response);
 		}
 

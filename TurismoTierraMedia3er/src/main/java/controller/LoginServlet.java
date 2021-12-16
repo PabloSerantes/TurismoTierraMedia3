@@ -13,10 +13,8 @@ import model.Usuario;
 import persistence.commons.DAOFactory;
 
 @WebServlet("/logintry")
-
 public class LoginServlet extends HttpServlet {
-       
-	private static final long serialVersionUID = -1267936749008845670L;
+	private static final long serialVersionUID = 1008846867340485690L;
 
 	@Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,9 +26,10 @@ public class LoginServlet extends HttpServlet {
 				req.getSession().setAttribute("username", username);
 				if(user.isAdmin()) {
 					getServletContext().getRequestDispatcher("/admpipe.adm").forward(req, resp);
+				} else {
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ofertas.do");
+					dispatcher.forward(req, resp);
 				}
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/preferencia.do");
-				dispatcher.forward(req, resp);
 			} else {
 				req.setAttribute("flash", "Error, usuario o contraseña incorrectos");    		
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");

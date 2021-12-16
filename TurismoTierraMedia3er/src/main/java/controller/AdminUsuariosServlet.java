@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,20 +15,30 @@ import service.UsuariosService;
  */
 @WebServlet("/users.adm")
 public class AdminUsuariosServlet extends HttpServlet {
-	private static final long serialVersionUID = 7666630909800556326L;
+	private static final long serialVersionUID = 52252650761756902L;
 	UsuariosService usuariosService;
 
 	public void init() throws ServletException {
 		super.init();
 		usuariosService = new UsuariosService();
 	}
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int opcion = (int)request.getAttribute("Opcion");
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		String sopcion = "";
+		if(Objects.nonNull(request.getParameter("SOpcion"))) {
+			sopcion = (String) request.getParameter("SOpcion");
+		}
+		int opcion = 0;
+		if(Objects.nonNull(request.getAttribute("Opcion"))) {
+			opcion = (int)request.getAttribute("Opcion");
+		}
+		if(!sopcion.isBlank()) {
+			opcion = Integer.parseInt(sopcion);
+		}
 		switch (opcion) {
 		case 1:
 			request.setAttribute("Opcion",null);
 			request.setAttribute("listaUsuarios",usuariosService.findAll());
-			getServletContext().getRequestDispatcher("/admpipe.adm").forward(request, response);
 			break;
 		case 2:
 			request.setAttribute("Opcion",null);
@@ -36,11 +47,14 @@ public class AdminUsuariosServlet extends HttpServlet {
 			break;
 		case 3:
 			request.setAttribute("Opcion",null);
-			usuariosService.delete((String)request.getAttribute("nombreBorrar"));
+			String nombre = (String)request.getParameter("nombreBorrar");
+			usuariosService.delete(nombre);
 			break;
 		default:
 			break;
 		}
-	}
+		getServletContext().getRequestDispatcher("/admpipe.adm?nombreBorrar=&SOpcion=").forward(request, response);
 
+	}
+	
 }
