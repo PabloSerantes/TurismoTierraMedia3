@@ -24,8 +24,11 @@ public class LoginServlet extends HttpServlet {
     	String password = req.getParameter("password");
     	Usuario user = DAOFactory.getUsuarioDAO().findByUsername(username);
     	if (Objects.nonNull(user)) {
-			if(user.auth(password)){
+			if(user.auth(password)&&user.isActive()){
 				req.getSession().setAttribute("username", username);
+				if(user.isAdmin()) {
+					getServletContext().getRequestDispatcher("/admpipe.adm").forward(req, resp);
+				}
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/preferencia.do");
 				dispatcher.forward(req, resp);
 			} else {

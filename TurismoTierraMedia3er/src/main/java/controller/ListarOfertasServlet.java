@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.ArrayList;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,15 +30,15 @@ public class ListarOfertasServlet extends HttpServlet {
 		String username = (String)((HttpServletRequest) request).getSession().getAttribute("username");
 		String salida = "";
 		Usuario user = DAOFactory.getUsuarioDAO().findByUsername(username);
-		List<Ofertable> ofertas = servOfertas.list();
-		List<Boolean> puede = new ArrayList<Boolean>();
-		
-		request.setAttribute("list",ofertas);
-		
+		List<Ofertable> ofertas;
 		if(user.isAdmin()){
-			salida = "/admin.jsp";
+			ofertas = servOfertas.list(user.getPreferencia());
+			salida = "/admpipe.adm";
+			request.setAttribute("listaOfertas",ofertas);
 		} else {
+			ofertas = servOfertas.list();
 			salida = "/user.jsp";
+			request.setAttribute("list",ofertas);
 		}
 		getServletContext().getRequestDispatcher(salida).forward(request, response);
 	}

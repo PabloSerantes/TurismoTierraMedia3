@@ -6,6 +6,8 @@ import java.util.Base64;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+import persistence.commons.DAOFactory;
+
 public class Usuario {
 	private Integer id;
 	private String username;
@@ -32,11 +34,31 @@ public class Usuario {
 	}	
 	
 	public boolean puedeComprar(Ofertable prod) {
+		if(this.comprado(prod)) {
+			return false;
+		}
 		return this.presupuesto >= prod.getPrecio() && this.tiempo >= prod.getTiempo() && prod.puedeOfertarse();
 	}
 	
+	public boolean comprado(Ofertable oferta) {
+		for(Itinerarios itn: new service.ItinerariosService().findByUsername(this.username)) {
+			if(itn.esPromocion()) {
+				Ofertable lectura = DAOFactory.getOfertableDAO().find( itn.getPromociones() );
+				if(oferta.equals(lectura)) {
+					return true;
+				}
+			} else {
+				Ofertable lectura = DAOFactory.getOfertableDAO().find(itn.getAtracciones());
+				if(oferta.equals(lectura)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	public void comprar(Ofertable prod) {
 		presupuesto -= prod.getPrecio();
+		tiempo -= prod.getTiempo();
 	}
 	
 	public Usuario(Integer id, String username, String password, boolean admin, int presupuesto, int preferencia, Double tiempo, Boolean active) {

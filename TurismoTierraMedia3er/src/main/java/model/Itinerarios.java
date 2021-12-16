@@ -88,5 +88,9 @@ public class Itinerarios {
     public void setTiempo(Double tiempo) {
         this.tiempo = tiempo;
     }
+    
+    public boolean esPromocion() {
+    	return this.atracciones.isBlank();
+    }
 
 }

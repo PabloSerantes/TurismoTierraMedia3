@@ -159,9 +159,28 @@ public class OfertableDAOImpl implements OfertableDAO{
 
     @Override
     public int delete(Integer id){
-        return 0;
+    	try{
+    		String nombre = this.find(id).getNombre();
+            String sql = "UPDATE Promocion SET active = 0 WHERE Nombre = ?";
+			Connection conn = ConnectionProvider.getConnection();
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, nombre);
+			int rows = statement.executeUpdate();
+            if( rows == 0 ){
+                sql = "UPDATE Atraccion SET active = 0 WHERE Nombre = ?";
+                conn = ConnectionProvider.getConnection();
+                statement = conn.prepareStatement(sql);
+                statement.setString(1, nombre);
+			    rows = statement.executeUpdate();
+            }
+			return rows;
+        } catch (Exception e) {
+			throw new MissingDataException(e);
+		}
     }
 
+    @Override
     public int delete(String nombre){
         try{
             String sql = "UPDATE Promocion SET active = 0 WHERE Nombre = ?";

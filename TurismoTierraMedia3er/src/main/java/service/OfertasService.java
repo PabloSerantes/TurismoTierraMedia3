@@ -14,12 +14,17 @@ public class OfertasService {
     public List<Ofertable> list(int tipo){
         List<Ofertable> entrada = DAOFactory.getOfertableDAO().findAll();
         List<Ofertable> salida = new ArrayList<Ofertable>();
+        List<Ofertable> distintos = new ArrayList<Ofertable>();
         for (Ofertable oferta : entrada) {
             if(oferta.getTipo() == tipo){
                 salida.add(oferta);
+            }else {
+            	distintos.add(oferta);
             }
         }
+        Collections.sort(distintos);
         Collections.sort(salida);
+        salida.addAll(distintos);
         return salida;
     }
 
@@ -66,5 +71,9 @@ public class OfertasService {
         } catch(Exception e){
             return -1;
         }
+    }
+    
+    public int delete(String nombre) {
+    	return DAOFactory.getOfertableDAO().delete(nombre);
     }
 }

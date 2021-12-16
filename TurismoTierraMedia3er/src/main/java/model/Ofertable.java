@@ -185,6 +185,25 @@ public class Ofertable implements Comparable<Ofertable>{
     	}
     }
     
+    public boolean contiene(String oferta) {
+    	if(this.nombre.equals(oferta)) {
+    		return true;
+    	} else {
+    		if(this.esPromocion()) {
+	    		String[] atracciones = this.conformacion.split(" - ");
+	    		for (String atr : atracciones) {
+					if(atr.equals(oferta)){
+						return true;
+					}
+				}
+	    		if(this.tipoPromocion.equals("AxB")) {
+	    			return this.especial.equals(oferta);
+	    		}
+    		}
+    	}
+    	return false;
+    }
+    
     public void setTipo(int tipo) {
         this.tipo = tipo;
     }
@@ -240,9 +259,19 @@ public class Ofertable implements Comparable<Ofertable>{
     public boolean puedeComprar(String username) {
     	return DAOFactory.getUsuarioDAO().findByUsername(username).puedeComprar(this);
     }
+    
+    public boolean esPromocion() {
+    	return !(this.conformacion.isBlank());
+    }
 
     @Override
     public int compareTo(Ofertable o) {
+    	if(this.esPromocion() && !(o.esPromocion()) ) {
+    		return 1;
+    	}
+    	if( !(this.esPromocion()) && o.esPromocion() ) {
+    		return -1;
+    	}
         int salida = Integer.compare(o.getPrecio(), this.getPrecio());
         if(salida!=0){
             return salida;
@@ -260,5 +289,12 @@ public class Ofertable implements Comparable<Ofertable>{
         } catch(NumberFormatException e){
             return false;
         }
+    }
+    
+    public boolean equals(Ofertable obj) {
+    	if(this.id == obj.id||this.nombre.equals(obj.getNombre())) {
+    		return true;
+    	}
+    	return false;
     }
 }
